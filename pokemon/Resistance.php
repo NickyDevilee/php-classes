@@ -10,9 +10,9 @@ class Resistance
 	public $value;
 	
 	
-	public function __construct($energy, $reseistanceValue) {
-		$this->energyType = $energy;
-		$this->value = $reseistanceValue;
+	public function __construct($energyObj, $resistanceValue) {
+		$this->energyType = $energyObj;
+		$this->value = $resistanceValue;
 	}
 }
 

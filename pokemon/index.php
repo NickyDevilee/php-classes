@@ -14,8 +14,6 @@
 		'psychic' => new EnergyType("Psychic"),
 	];
 
-	var_dump($energyTypes);
-
 	// $new_pokemon = new Pokemon(
 	// 	$pokemonName, 
 	// 	$energyTypeObject, 
@@ -29,7 +27,7 @@
 		'Pikachu', 
 		$energyTypes['lightning'], 
 		50, 
-		[new Attack('Pika Punch', 20), new Attack('Electric Ring', 50)], 
+		['Pika Punch' => new Attack('Pika Punch', 20), 'Electric Ring' => new Attack('Electric Ring', 50)], 
 		new Weakness($energyTypes['fire'], 1.5), 
 		new Resistance($energyTypes['fighting'], 20)
 	);
@@ -38,7 +36,7 @@
 		'Charmeleon', 
 		$energyTypes['fire'], 
 		60, 
-		[new Attack('Head Butt', 10), new Attack('Flare', 30)], 
+		['Head Butt' => new Attack('Head Butt', 10), 'Flare' => new Attack('Flare', 30)], 
 		new Weakness($energyTypes['water'], 2), 
 		new Resistance($energyTypes['lightning'], 10)
 	);
@@ -52,13 +50,13 @@
 		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	</head>
 	<body>
-		<div class="container">
+		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-6">
-					<?php var_dump($pikachu); ?>
+					<?php $pikachu->attack($charmeleon, $pikachu->attacks['Pika Punch']); ?>
 				</div>
 				<div class="col-md-6">
-					<?php var_dump($charmeleon); ?>
+					<?php $charmeleon->attack($pikachu, $charmeleon->attacks['Head Butt']); ?>
 				</div>
 			</div>
 		</div>
