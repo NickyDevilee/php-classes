@@ -29,19 +29,31 @@ class Pokemon
 		return json_encode($this);
 	}
 
-	// $pickachu->attack($charmeleon, $pikachu->attack[1]);
-
 	public function attack($target, $attack) {
+
+		$totaldamage = '';
+
+		if ($target->weakness->energyType->name == $this->energyType->name) {
+			$totaldamage = $attack->damage * $target->weakness->multiplier;
+		} else {
+			$totaldamage = $attack->damage;
+			if ($target->resistance->energyType->name == $this->energyType->name) {
+				$totaldamage = $attack->damage - $target->resistance->value;
+			}
+		}
+
 		echo $target->name."'s remaining health: ".$target->health."<br>";
 
-		echo 'Pokemon '.$this->name.' doet '.$attack->name.' en levert '.$attack->damage.' damage aan '.$target->name.'<br>';
+		echo 'Pokemon '.$this->name.' doet '.$attack->name.' en levert '.$totaldamage.' damage aan '.$target->name.'<br>';
 
-		$target->health = $target->health - $attack->damage;
+		$target->health = $target->health - $totaldamage;
 
 		echo $target->name."'s remaining health: ".$target->health."<br><br><br>";
-    }
+	}
 
-    // echo "pokemon pikachu doet pika punch en levert 50 damage aan charmelon";
+	public function getPopulation() {
+		echo "joejoe";
+	}
 }
 
 ?>
