@@ -6,6 +6,7 @@
 class Pokemon
 {
 
+	public $db_id;
 	public $name;
 	public $energyType;
 	public $hitpoints;
@@ -15,7 +16,8 @@ class Pokemon
 	public $resistance;
 	
 	
-	public function __construct($pokemonName, $energyTypeObject, $hitPoints, $attackArray, $weaknessObject, $resistanceObject) {
+	public function __construct($id, $pokemonName, $energyTypeObject, $hitPoints, $attackArray, $weaknessObject, $resistanceObject) {
+		$this->db_id = $id;
 		$this->name = $pokemonName;
 		$this->energyType = $energyTypeObject;
 		$this->hitpoints = $hitPoints;
