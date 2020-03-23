@@ -63,10 +63,18 @@
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-6">
-					<?php $pokedex['pikachu']->attack($pokedex['charmeleon'], $pokedex['pikachu']->attacks['Electric Ring']); ?>
+					<?php 
+						while ($pokedex['charmeleon']->health != 0) {
+							$pokedex['pikachu']->attack($pokedex['charmeleon'], $pokedex['pikachu']->attacks['Electric Ring']);
+						}
+					 ?>
 				</div>
 				<div class="col-md-6">
-					<?php $pokedex['charmeleon']->attack($pokedex['pikachu'], $pokedex['charmeleon']->attacks['Flare']); ?>
+					<?php 
+						while ($pokedex['pikachu']->health != 0) {
+							$pokedex['charmeleon']->attack($pokedex['pikachu'], $pokedex['charmeleon']->attacks['Flare']);
+						}
+					 ?>
 				</div>
 			</div>
 		</div>
