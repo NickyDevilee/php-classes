@@ -1,10 +1,14 @@
 <?php 
 	require 'datalayer.php';
-	require 'Pokemon.php';
-	require 'Energytype.php';
-	require 'Weakness.php';
-	require 'Attack.php';
-	require 'Resistance.php';
+	// require 'Pokemon.php';
+	// require 'Energytype.php';
+	// require 'Weakness.php';
+	// require 'Attack.php';
+	// require 'Resistance.php';
+
+	spl_autoload_register(function ($class_name) {
+		require $class_name . '.php';
+	});
 
 	$energyTypes = [
 		'electric' => new EnergyType("Electric"),
@@ -41,6 +45,10 @@
 	$pokedex = createAllPokemons();
 
 	var_dump($pokedex);
+
+	echo "<br><br>";
+
+	echo Pokemon::Hello();
 
 ?>
 
@@ -156,7 +164,7 @@
 									<?php foreach ($pokedex as $pokemon) {
 										$array_keys = array_keys($pokemon->attacks); ?>
 										<tr>
-											<td><?=$pokemon->name;?></td>
+											<td><?=$pokemon->getName();?></td>
 											<td><?=$pokemon->energyType->name?></td>
 											<td><?=$pokemon->hitpoints?></td>
 											<td><?=$pokemon->health;?></td>
