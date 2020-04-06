@@ -1,6 +1,6 @@
 <?php 
 /**
- * 
+ * abstract gemaakt omdat de class niet meer gebruikt word.
  */
 abstract class Pokemon
 {
@@ -26,11 +26,14 @@ abstract class Pokemon
 		$this->resistance = $resistanceObject;
 	}
 
+	// functie kan private omdat deze alleen binnen de class gebruikt word en niet erbbuiten.
+	// setter gemaakt
 	private function setName($pokemonName) {
 		$this->name = $pokemonName;
 		return $this->name;
 	}
 
+	// getter gemaakt
 	public function getName() {
 		return $this->name;
 	}
@@ -43,6 +46,7 @@ abstract class Pokemon
 		echo "joejoe";
 	}
 
+	// static function aangemaakt, deze kan aangeroepen worden zonder dat er een object van deze class bestaat.
 	static function Hello() {
 		return "Hello allemaal";
 	}

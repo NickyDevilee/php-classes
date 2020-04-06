@@ -16,6 +16,7 @@ function openDatabaseConnection() {
 	}
 }
 
+// alle pokemons worden direct vanuit de db aangemaakt
 function createAllPokemons() {
 	$conn = openDatabaseConnection();
 	$query = $conn->prepare("SELECT * FROM `pokemons`");
