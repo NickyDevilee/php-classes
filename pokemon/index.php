@@ -1,4 +1,4 @@
-<?php 
+<?php
 	require 'datalayer.php';
 	// require 'Pokemon.php';
 	// require 'Energytype.php';
@@ -32,17 +32,17 @@
 	];
 
 	// $new_pokemon = new Pokemon(
-	// 	$pokemonName, 
-	// 	$energyTypeObject, 
-	// 	$hitPoints, 
-	// 	$attackArray, 
-	// 	$weaknessObject, 
+	// 	$pokemonName,
+	// 	$energyTypeObject,
+	// 	$hitPoints,
+	// 	$attackArray,
+	// 	$weaknessObject,
 	// 	$resistanceObject
 	// );
 
 	$all_pokemons = createAllPokemons();
 
-	$pokedex = createAllPokemons();
+	$pokedex = $all_pokemons;//createAllPokemons();
 
 	var_dump($pokedex);
 
@@ -73,16 +73,16 @@
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-6">
-					<?php 
+					<?php
 						while ($pokedex['charmeleon']->health != 0) {
 							$pokedex['pikachu']->attack($pokedex['charmeleon'], $pokedex['pikachu']->attacks['Electric Ring']);
 						}
 					 ?>
 				</div>
 				<div class="col-md-6">
-					<?php 
-						while ($pokedex['ed']->health != 0) {
-							$pokedex['charmeleon']->attack($pokedex['ed'], $pokedex['charmeleon']->attacks['Flare']);
+					<?php
+						while ($pokedex['pikachu']->health != 0) {
+							$pokedex['charmeleon']->attack($pokedex['pikachu'], $pokedex['charmeleon']->attacks['Flare']);
 						}
 					 ?>
 				</div>
@@ -124,7 +124,7 @@
 									<?php foreach ($all_pokemons as $pokemon) {
 										$array_keys = array_keys($pokemon->attacks); ?>
 										<tr>
-											<td><?=$pokemon->name;?></td>
+											<td><?=$pokemon->getName();?></td>
 											<td><?=$pokemon->energyType->name?></td>
 											<td><?=$pokemon->hitpoints?></td>
 											<td><?=$pokemon->attacks[$array_keys[0]]->name?></td>
@@ -133,9 +133,9 @@
 											<td><?=$pokemon->attacks[$array_keys[1]]->damage?></td>
 											<td><?=$pokemon->weakness->energyType->name?></td>
 											<td><?=$pokemon->resistance->energyType->name?></td>
-											<td><?=$pokemon->db_id;?></td>
-											<td><a href="edit.php?id=<?=$pokemon->db_id;?>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-											<td><a href="delete.php?id=<?=$pokemon->db_id;?>" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+											<td><?=$pokemon->getDb_id();?></td>
+											<td><a href="edit.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+											<td><a href="delete.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -174,15 +174,15 @@
 											<td><?=$pokemon->attacks[$array_keys[1]]->damage?></td>
 											<td><?=$pokemon->weakness->energyType->name?></td>
 											<td><?=$pokemon->resistance->energyType->name?></td>
-											<td><?=$pokemon->db_id;?></td>
-											<td><a href="edit.php?id=<?=$pokemon->db_id;?>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-											<td><a href="delete.php?id=<?=$pokemon->db_id;?>" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+											<td><?=$pokemon->getDb_id();?></td>
+											<td><a href="edit.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+											<td><a href="delete.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 										</tr>
 									<?php } ?>
 								</tbody>
 							</table>
 						</div>
-					</div>	
+					</div>
 				</div>
 			</div>
 		</div>
@@ -294,6 +294,8 @@
 		</div>
 	</div>
 </div>
+
+<?php echo current($all_pokemons)->getPopulation(); ?>
 
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
