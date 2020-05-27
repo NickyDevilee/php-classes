@@ -44,7 +44,7 @@
 
 	$pokedex = $all_pokemons;//createAllPokemons();
 
-	var_dump($pokedex);
+	// var_dump($pokedex);
 
 	echo "<br><br>";
 
