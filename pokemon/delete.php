@@ -51,9 +51,9 @@ $data = getPokemonFromID($id);
 
 					<div class="form-group">
 						<label for="energyType">Energy type:</label>
-						<select readonly="true" id="energyType" class="form-control" name="energyType">
+						<select disabled="true" id="energyType" class="form-control" name="energyType">
 							<?php foreach ($energyTypes as $energytype) { ?>
-								<option value="<?=$energytype->name?>" <?=($data['energyType'] == $energytype->name ? 'selected' : '')?>><?=$energytype->name?></option>
+								<option value="<?=$energytype->getName()?>" <?=($data['energyType'] == $energytype->getName() ? 'selected' : '')?>><?=$energytype->getName()?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -97,9 +97,9 @@ $data = getPokemonFromID($id);
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="weakness">Weakness:</label>
-								<select readonly="true" id="weakness" class="form-control" name="weakness">
+								<select disabled="true" id="weakness" class="form-control" name="weakness">
 									<?php foreach ($energyTypes as $energytype) { ?>
-										<option value="<?=$energytype->name?>" <?=($data['weakness'] == $energytype->name ? 'selected' : '')?>><?=$energytype->name?></option>
+										<option value="<?=$energytype->getName()?>" <?=($data['weakness'] == $energytype->getName() ? 'selected' : '')?>><?=$energytype->getName()?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -116,9 +116,9 @@ $data = getPokemonFromID($id);
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="resistance">Resistance:</label>
-								<select readonly="true" id="resistance" class="form-control" name="resistance">
+								<select disabled="true" id="resistance" class="form-control" name="resistance">
 									<?php foreach ($energyTypes as $energytype) { ?>
-										<option value="<?=$energytype->name?>" <?=($data['resistance'] == $energytype->name ? 'selected' : '')?>><?=$energytype->name?></option>
+										<option value="<?=$energytype->getName()?>" <?=($data['resistance'] == $energytype->getName() ? 'selected' : '')?>><?=$energytype->getName()?></option>
 									<?php } ?>
 								</select>
 							</div>

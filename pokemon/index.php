@@ -73,17 +73,17 @@
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-6">
-					<?php
-						while ($pokedex['charmeleon']->health != 0) {
-							$pokedex['pikachu']->attack($pokedex['charmeleon'], $pokedex['pikachu']->attacks['Electric Ring']);
-						}
+					<?php 
+					echo $pokedex['pikachu']->attack($pokedex['charmeleon'], $pokedex['pikachu']->getAttack('Electric Ring'));
+					echo $pokedex['pikachu']->attack($pokedex['charmeleon'], $pokedex['pikachu']->getAttack('Electric Ring'));
+					echo $pokedex['pikachu']->attack($pokedex['charmeleon'], $pokedex['pikachu']->getAttack('Electric Ring'));
 					 ?>
 				</div>
 				<div class="col-md-6">
-					<?php
-						while ($pokedex['pikachu']->health != 0) {
-							$pokedex['charmeleon']->attack($pokedex['pikachu'], $pokedex['charmeleon']->attacks['Flare']);
-						}
+					<?php 
+					echo $pokedex['charmeleon']->attack($pokedex['pikachu'], $pokedex['charmeleon']->getAttack('Flare'));
+					echo $pokedex['charmeleon']->attack($pokedex['pikachu'], $pokedex['charmeleon']->getAttack('Flare'));
+					echo $pokedex['charmeleon']->attack($pokedex['pikachu'], $pokedex['charmeleon']->getAttack('Flare'));
 					 ?>
 				</div>
 			</div>
@@ -122,17 +122,17 @@
 								</thead>
 								<tbody>
 									<?php foreach ($all_pokemons as $pokemon) {
-										$array_keys = array_keys($pokemon->attacks); ?>
+										$array_keys = array_keys($pokemon->getAttacks()); ?>
 										<tr>
 											<td><?=$pokemon->getName();?></td>
-											<td><?=$pokemon->energyType->name?></td>
-											<td><?=$pokemon->hitpoints?></td>
-											<td><?=$pokemon->attacks[$array_keys[0]]->name?></td>
-											<td><?=$pokemon->attacks[$array_keys[0]]->damage?></td>
-											<td><?=$pokemon->attacks[$array_keys[1]]->name?></td>
-											<td><?=$pokemon->attacks[$array_keys[1]]->damage?></td>
-											<td><?=$pokemon->weakness->energyType->name?></td>
-											<td><?=$pokemon->resistance->energyType->name?></td>
+											<td><?=$pokemon->getEnergyType()->getName()?></td>
+											<td><?=$pokemon->getHitpoints()?></td>
+											<td><?=$pokemon->getAttack($array_keys[0])->getName()?></td>
+											<td><?=$pokemon->getAttack($array_keys[0])->getDamage()?></td>
+											<td><?=$pokemon->getAttack($array_keys[1])->getName()?></td>
+											<td><?=$pokemon->getAttack($array_keys[1])->getDamage()?></td>
+											<td><?=$pokemon->getWeakness()->getEnergyType()->getName()?></td>
+											<td><?=$pokemon->getResistance()->getEnergyType()->getName()?></td>
 											<td><?=$pokemon->getDb_id();?></td>
 											<td><a href="edit.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 											<td><a href="delete.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
@@ -162,23 +162,27 @@
 								</thead>
 								<tbody>
 									<?php foreach ($pokedex as $pokemon) {
-										$array_keys = array_keys($pokemon->attacks); ?>
-										<tr>
-											<td><?=$pokemon->getName();?></td>
-											<td><?=$pokemon->energyType->name?></td>
-											<td><?=$pokemon->hitpoints?></td>
-											<td><?=$pokemon->health;?></td>
-											<td><?=$pokemon->attacks[$array_keys[0]]->name?></td>
-											<td><?=$pokemon->attacks[$array_keys[0]]->damage?></td>
-											<td><?=$pokemon->attacks[$array_keys[1]]->name?></td>
-											<td><?=$pokemon->attacks[$array_keys[1]]->damage?></td>
-											<td><?=$pokemon->weakness->energyType->name?></td>
-											<td><?=$pokemon->resistance->energyType->name?></td>
-											<td><?=$pokemon->getDb_id();?></td>
-											<td><a href="edit.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-											<td><a href="delete.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-										</tr>
-									<?php } ?>
+										if ($pokemon->getHealth() == 0) {
+											continue;
+										} else {
+											$array_keys = array_keys($pokemon->getAttacks()); ?>
+											<tr>
+												<td><?=$pokemon->getName();?></td>
+												<td><?=$pokemon->getEnergyType()->getName()?></td>
+												<td><?=$pokemon->getHitpoints()?></td>
+												<td><?=$pokemon->getHealth();?></td>
+												<td><?=$pokemon->getAttack($array_keys[0])->getName()?></td>
+												<td><?=$pokemon->getAttack($array_keys[0])->getDamage()?></td>
+												<td><?=$pokemon->getAttack($array_keys[1])->getName()?></td>
+												<td><?=$pokemon->getAttack($array_keys[1])->getDamage()?></td>
+												<td><?=$pokemon->getWeakness()->getEnergyType()->getName()?></td>
+												<td><?=$pokemon->getResistance()->getEnergyType()->getName()?></td>
+												<td><?=$pokemon->getDb_id();?></td>
+												<td><a href="edit.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+												<td><a href="delete.php?id=<?=$pokemon->getDb_id();?>" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+											</tr>
+										<?php } 
+									} ?>
 								</tbody>
 							</table>
 						</div>
@@ -209,7 +213,7 @@
 						<label for="energyType">Energy type:</label>
 						<select id="energyType" class="form-control" name="energyType">
 							<?php foreach ($energyTypes as $energytype) { ?>
-								<option value="<?=$energytype->name?>"><?=$energytype->name?></option>
+								<option value="<?=$energytype->getName()?>"><?=$energytype->getName()?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -255,7 +259,7 @@
 								<label for="weakness">Weakness:</label>
 								<select id="weakness" class="form-control" name="weakness">
 									<?php foreach ($energyTypes as $energytype) { ?>
-										<option value="<?=$energytype->name?>"><?=$energytype->name?></option>
+										<option value="<?=$energytype->getName()?>"><?=$energytype->getName()?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -274,7 +278,7 @@
 								<label for="resistance">Resistance:</label>
 								<select id="resistance" class="form-control" name="resistance">
 									<?php foreach ($energyTypes as $energytype) { ?>
-										<option value="<?=$energytype->name?>"><?=$energytype->name?></option>
+										<option value="<?=$energytype->getName()?>"><?=$energytype->getName()?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -294,8 +298,6 @@
 		</div>
 	</div>
 </div>
-
-<?php echo current($all_pokemons)->getPopulation(); ?>
 
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

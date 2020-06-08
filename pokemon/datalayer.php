@@ -3,7 +3,7 @@
 function openDatabaseConnection() {
 	$servername = "localhost";
 	$username = "root";
-	$password = "root";
+	$password = "";
 
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=pokemons", $username, $password);

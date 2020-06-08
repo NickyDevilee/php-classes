@@ -53,7 +53,7 @@ var_dump($data);
 						<label for="energyType">Energy type:</label>
 						<select id="energyType" class="form-control" name="energyType">
 							<?php foreach ($energyTypes as $energytype) { ?>
-								<option value="<?=$energytype->name?>" <?=($data['energyType'] == $energytype->name ? 'selected' : '')?>><?=$energytype->name?></option>
+								<option value="<?=$energytype->getName()?>" <?=($data['energyType'] == $energytype->getName() ? 'selected' : '')?>><?=$energytype->getName()?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -99,7 +99,7 @@ var_dump($data);
 								<label for="weakness">Weakness:</label>
 								<select id="weakness" class="form-control" name="weakness">
 									<?php foreach ($energyTypes as $energytype) { ?>
-										<option value="<?=$energytype->name?>" <?=($data['weakness'] == $energytype->name ? 'selected' : '')?>><?=$energytype->name?></option>
+										<option value="<?=$energytype->getName()?>" <?=($data['weakness'] == $energytype->getName() ? 'selected' : '')?>><?=$energytype->getName()?></option>
 									<?php } ?>
 								</select>
 							</div>
@@ -118,7 +118,7 @@ var_dump($data);
 								<label for="resistance">Resistance:</label>
 								<select id="resistance" class="form-control" name="resistance">
 									<?php foreach ($energyTypes as $energytype) { ?>
-										<option value="<?=$energytype->name?>" <?=($data['resistance'] == $energytype->name ? 'selected' : '')?>><?=$energytype->name?></option>
+										<option value="<?=$energytype->getName()?>" <?=($data['resistance'] == $energytype->getName() ? 'selected' : '')?>><?=$energytype->getName()?></option>
 									<?php } ?>
 								</select>
 							</div>

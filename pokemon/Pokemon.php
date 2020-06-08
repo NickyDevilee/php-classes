@@ -1,98 +1,116 @@
 <?php
-/**
- * abstract gemaakt omdat de class niet meer gebruikt word.
- */
-abstract class Pokemon
+
+class Pokemon
 {
+	public function __toString() {
+		return json_encode($this);
+	}
 
 	private $db_id;
 	private $name;
-	public $energyType;
-	public $hitpoints;
-	public $health;
-	public $attacks;
-	public $weakness;
-	public $resistance;
-	private static $population = array();
+	private $energyType;
+	private $hitpoints;
+	private $health;
+	private $attacks;
+	private $weakness;
+	private $resistance;
+	// private static $population = array();
 
 	public function __construct($id, $pokemonName, $energyTypeObject, $hitPoints, $attackArray, $weaknessObject, $resistanceObject) {
-		$this->db_id = $this->setDb_id($id);
-		$this->name = $this->setName($pokemonName);
+		$this->db_id = $id;
+		$this->name = $pokemonName;
 		$this->energyType = $energyTypeObject;
 		$this->hitpoints = $hitPoints;
 		$this->health = $this->hitpoints;
 		$this->attacks = $attackArray;
 		$this->weakness = $weaknessObject;
 		$this->resistance = $resistanceObject;
-		self::$population[$id] = 1;
-	}
-
-	// functie kan private omdat deze alleen binnen de class gebruikt word en niet erbbuiten.
-	// setter gemaakt
-	private function setName($pokemonName) {
-		$this->name = $pokemonName;
-		return $this->name;
-	}
-
-	// getter gemaakt
-	public function getName() {
-		return $this->name;
-	}
-
-	private function setDb_id($id) {
-		$this->db_id = $id;
-		return $this->db_id;
+		// self::$population[$id] = 1;
 	}
 
 	public function getDb_id() {
 		return $this->db_id;
 	}
 
-	public function attack($target, $attack) {
+	public function getName() {
+		return $this->name;
+	}
 
-		if ($target->health <= 0) {
-			$target->health = 0;
-			echo "<br>";
-			echo $target->getName()."'s remaining health: ".$target->health.", use revive.<br>";
+	public function getEnergyType() {
+		return $this->energyType;
+	}
+
+	public function getHitpoints() {
+		return $this->hitpoints;
+	}
+
+	public function getHealth() {
+		return $this->health;
+	}
+
+	public function setHealth($value) {
+		$this->health = $value;
+	}
+
+	public function getAttacks(){
+        return $this->attacks;
+    }
+
+	public function getAttack($i){
+        return $this->attacks[$i];
+    }
+
+	public function getWeakness() {
+		return $this->weakness;
+	}
+
+	public function getResistance() {
+		return $this->resistance;
+	}
+
+	public function attack($target, $attack) {
+		$msg = '';
+
+		if ($target->getHealth() <= 0) {
+			$target->setHealth(0);
+			$msg .= "<br>";
+			$msg .= $target->getName()."'s remaining health: ".$target->getHealth().", use revive.<br>";
 		} else {
 			$totaldamage = '';
 
-			if ($target->weakness->energyType->getName() == $this->energyType->getName()) {
-				$totaldamage = $attack->damage * $target->weakness->multiplier;
+			if ($target->getWeakness()->getEnergyType()->getName() == $this->energyType->getName()) {
+				$totaldamage = $attack->getDamage() * $target->getWeakness()->getMultiplier();
 			} else {
-				$totaldamage = $attack->damage;
-				if ($target->resistance->energyType->getName() == $this->energyType->getName()) {
-					$totaldamage = $attack->damage - $target->resistance->value;
+				$totaldamage = $attack->getDamage();
+				if ($target->getResistance()->getEnergyType()->getName() == $this->energyType->getName()) {
+					$totaldamage = $attack->getDamage() - $target->getResistance()->getValue();
 				}
 			}
 
-			echo $target->getName()."'s remaining health: ".$target->health."<br>";
+			$msg .= $target->getName()."'s remaining health: ".$target->getHealth()."<br>";
 
-			echo 'Pokemon '.$this->getName().' doet '.$attack->getName().' en levert '.$totaldamage.' damage aan '.$target->getName().'<br>';
+			$msg .= 'Pokemon '.$this->name.' doet '.$attack->getName().' en levert '.$totaldamage.' damage aan '.$target->getName().'<br>';
 
-			$target->health = $target->health - $totaldamage;
+			$target->setHealth($target->getHealth() - $totaldamage);
 
-			if ($target->health <= 0) {
-				$target->die();
-				echo $target->getName()." is dood.<br>";
+			if ($target->getHealth() <= 0) {
+				$msg .= $target->getName()." is dood.<br>";
 			} else {
-				echo $target->getName()."'s remaining health: ".$target->health."<br><br><br>";
+				$msg .= $target->getName()."'s remaining health: ".$target->getHealth()."<br><br><br>";
 			}
 		}
+
+		return $msg;
 	}
 
-	public function __toString() {
-		return json_encode($this);
-	}
+	// public function die() {
+	// 	$this->health = 0;
+	// 	unset(self::$population[$this->db_id]);
+	// }
 
-	public function die() {
-		$this->health = 0;
-		unset(self::$population[$this->db_id]);
-	}
-
-	public function getPopulation() {
-		return count(self::$population);
-	}
+	// public function getPopulation() {
+	// 	return count(self::$population);
+	// }
 
 	// static function aangemaakt, deze kan aangeroepen worden zonder dat er een object van deze class bestaat.
 	static function Hello() {
